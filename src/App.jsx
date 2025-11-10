@@ -18,14 +18,14 @@ function filterMovies(query = '') {
 }
 
 export const App = () => {
-  const [sortFilter, setSortFilter] = useState(filterMovies());
+  const [query, setQuery] = useState('');
+  const visibleMovies = filterMovies(query);
 
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -36,15 +36,14 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={event => {
-                  setSortFilter(filterMovies(event.target.value));
-                }}
+                value={query}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={sortFilter} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
